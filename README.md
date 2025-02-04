@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# 📝 To-Do List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 About This Project
 
-Currently, two official plugins are available:
+This isn't just another to-do list—it's a **daily coding challenge**. I'm rebuilding this app **from scratch** every day to sharpen my skills in **React, TypeScript, UI development, and clean state management**. Each time I rebuild it, I focus on improving speed, structure, and efficiency.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The goal? **Master React & TypeScript** through real hands-on work, not just tutorials.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🔥 What I'm Practicing Every Day
 
-- Configure the top-level `parserOptions` property like this:
+### 🏗️ Core Features I Rebuild & Improve:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+✔️ **State Management** – Handling tasks efficiently with `useState`
+✔️ **Component Structure** – Breaking down the UI into reusable parts
+✔️ **Props & Event Handling** – Passing data cleanly between components
+✔️ **Sorting & Filtering** – Allowing users to organize tasks effectively
+✔️ **Local Storage** – Saving tasks so they persist across page refreshes
+✔️ **Styling & UI Improvements** – Making sure the app is visually polished
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 🎯 Why I'm Doing This
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+🔹 **Speed & Efficiency** – Each rebuild makes me faster at structuring and coding real-world React apps.
+🔹 **Deep Understanding** – Instead of memorizing solutions, I learn how things truly work by **rebuilding and refining**.
+🔹 **Debugging & Problem-Solving** – Every bug I fix makes me better at understanding how React handles state and re-renders.
+🔹 **Portfolio Readiness** – This project will evolve into a clean, well-structured app that showcases my ability to build solid frontend applications.
+
+---
+
+## 🚀 What's Next?
+
+🔜 **Grocery List App** – Expanding my knowledge by integrating an **API for real-time pricing** and handling **more complex state**.
+🔜 **AI-Enhanced Features** – Eventually, I'll experiment with integrating **AI-based suggestions or automation** to make task management smarter.
+
+---
+
+## 📂 GitHub Activity
+
+- 🔄 **Pushing updates after every coding session** to track progress
+- 🏆 **Refining code & improving best practices daily**
+- 📌 **This isn't just about a to-do list—it's about leveling up every single day**
+
+---
+
+This project is part of my **journey to mastering React, TypeScript, and frontend development**, so I can **build better projects, integrate AI, and land a software job soon**. 🚀
