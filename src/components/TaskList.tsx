@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Task } from "../types";
-import SortDropdown from "./SortDropDown";
+import SortDropdown from "./SortDropdown";
 import TaskItem from "./TaskItem";
-import FilterDropdown from "./FilterDropDown";
+import FilterDropdown from "./FilterDropdown";
+import Search from "./Search";
 
 interface TaskListProps {
   taskList: Task[];
@@ -10,23 +11,33 @@ interface TaskListProps {
 }
 
 function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
-  const [sortBy, setSortBy] = useState<string>("order-added");
-  const [sortDirection, setSortDirection] = useState<string>("ascending");
-  const [filter, setFilter] = useState<string>("all");
-  const [finalList, setFinalList] = useState<Task[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [sortFilterSettings, setSortFilterSettings] = useState(() => {
+    const savedSettings = localStorage.getItem("savedSettings");
+    return savedSettings
+      ? JSON.parse(savedSettings)
+      : { sortBy: "order-added", sortDirection: "ascending", filter: "all" };
+  });
+  function updateSortFilterSettings(
+    newSettings: Partial<typeof sortFilterSettings>
+  ) {
+    const updatedSettings = { ...sortFilterSettings, ...newSettings };
+    setSortFilterSettings(updatedSettings);
+    localStorage.setItem("savedSettings", JSON.stringify(updatedSettings));
+  }
 
   function sortList(filteredList: Task[]) {
     let sortedList: Task[] = [...filteredList];
-    if (sortDirection === "ascending") {
-      if (sortBy === "title") {
+    if (sortFilterSettings.sortDirection === "ascending") {
+      if (sortFilterSettings.sortBy === "title") {
         sortedList.sort((a, b) => a.text.localeCompare(b.text));
-      } else if (sortBy === "completed") {
+      } else if (sortFilterSettings.sortBy === "completed") {
         sortedList.sort((a, b) => Number(b.completed) - Number(a.completed));
       }
     } else {
-      if (sortBy === "title") {
+      if (sortFilterSettings.sortBy === "title") {
         sortedList.sort((a, b) => b.text.localeCompare(a.text));
-      } else if (sortBy === "completed") {
+      } else if (sortFilterSettings.sortBy === "completed") {
         sortedList.sort((a, b) => Number(a.completed) - Number(b.completed));
       } else {
         sortedList.reverse();
@@ -37,29 +48,39 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
 
   function filterList(taskList: Task[]) {
     let filteredList = [...taskList];
-    if (filter === "completed") {
+
+    if (searchQuery.trim()) {
+      filteredList = filteredList.filter((task) =>
+        task.text.toLowerCase().includes(searchQuery.toLowerCase().trim())
+      );
+    }
+    if (sortFilterSettings.filter === "completed") {
       filteredList = filteredList.filter((task) => task.completed);
-    } else if (filter === "active") {
+    } else if (sortFilterSettings.filter === "active") {
       filteredList = filteredList.filter((task) => !task.completed);
     }
-    const sortedFilteredList: Task[] = sortList(filteredList);
-    setFinalList(sortedFilteredList);
+    return sortList(filteredList);
   }
 
-  useEffect(() => {
-    filterList(taskList);
-  }, [taskList, filter, sortBy, sortDirection]);
+  const finalList = filterList(taskList);
 
   return (
     <div>
       <div>
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <SortDropdown
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          sortDirection={sortDirection}
-          setSortDirection={setSortDirection}
+          sortBy={sortFilterSettings.sortBy}
+          setSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
+          sortDirection={sortFilterSettings.sortDirection}
+          setSortDirection={(value) =>
+            updateSortFilterSettings({ sortDirection: value })
+          }
         />
-        <FilterDropdown filter={filter} setFilter={setFilter} />
+
+        <FilterDropdown
+          filter={sortFilterSettings.filter}
+          setFilter={(value) => updateSortFilterSettings({ filter: value })}
+        />
       </div>
       <ul>
         {finalList.map((task: Task) => (
