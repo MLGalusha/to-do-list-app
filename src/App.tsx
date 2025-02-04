@@ -1,0 +1,32 @@
+import { useEffect, useState } from "react";
+import TaskListForm from "./components/TaskListForm";
+import TaskList from "./components/TaskList";
+import { Task } from "./types";
+
+function App() {
+  const [taskList, setTaskList] = useState<Task[]>(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(taskList));
+  }, [taskList]);
+
+  function addTask(task: Task) {
+    setTaskList([...taskList, task]);
+    console.log([...taskList, task]);
+  }
+
+  function modifyTaskList(newTaskList: Task[]) {
+    setTaskList(newTaskList);
+  }
+  return (
+    <>
+      <TaskListForm onAddTask={addTask} />
+      <TaskList taskList={taskList} onModifyTaskList={modifyTaskList} />
+    </>
+  );
+}
+
+export default App;
