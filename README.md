@@ -13,10 +13,15 @@ The goal? **Master React & TypeScript** through real hands-on work, not just tut
 ### 🏗️ Core Features I Rebuild & Improve:
 
 ✔️ **State Management** – Handling tasks efficiently with `useState`
+
 ✔️ **Component Structure** – Breaking down the UI into reusable parts
+
 ✔️ **Props & Event Handling** – Passing data cleanly between components
+
 ✔️ **Sorting & Filtering** – Allowing users to organize tasks effectively
+
 ✔️ **Local Storage** – Saving tasks so they persist across page refreshes
+
 ✔️ **Styling & UI Improvements** – Making sure the app is visually polished
 
 ---
@@ -24,8 +29,11 @@ The goal? **Master React & TypeScript** through real hands-on work, not just tut
 ## 🎯 Why I'm Doing This
 
 🔹 **Speed & Efficiency** – Each rebuild makes me faster at structuring and coding real-world React apps.
+
 🔹 **Deep Understanding** – Instead of memorizing solutions, I learn how things truly work by **rebuilding and refining**.
+
 🔹 **Debugging & Problem-Solving** – Every bug I fix makes me better at understanding how React handles state and re-renders.
+
 🔹 **Portfolio Readiness** – This project will evolve into a clean, well-structured app that showcases my ability to build solid frontend applications.
 
 ---
@@ -33,6 +41,7 @@ The goal? **Master React & TypeScript** through real hands-on work, not just tut
 ## 🚀 What's Next?
 
 🔜 **Grocery List App** – Expanding my knowledge by integrating an **API for real-time pricing** and handling **more complex state**.
+
 🔜 **AI-Enhanced Features** – Eventually, I'll experiment with integrating **AI-based suggestions or automation** to make task management smarter.
 
 ---
