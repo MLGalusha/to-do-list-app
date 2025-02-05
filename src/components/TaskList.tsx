@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Task } from "../types";
-import FilterDropdown from "./FilterDropdown";
-import SortDropdown from "./SortDropdown";
+import FilterDropdown from "./FilterDropDown.tsx";
+import SortDropdown from "./SortDropDown.tsx";
 import TaskItem from "./TaskItem";
 import Search from "./Search";
 
