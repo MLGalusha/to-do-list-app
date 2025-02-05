@@ -4,13 +4,17 @@ import FilterDropdown from "./FilterDropDown.tsx";
 import SortDropdown from "./SortDropDown.tsx";
 import TaskItem from "./TaskItem";
 import Search from "./Search";
+import TaskListForm from "./TaskListForm.tsx";
 
 interface TaskListProps {
   taskList: Task[];
   onModifyTaskList: (taskList: Task[]) => void;
+  onAddTask: (task: Task) => void;
 }
 
-function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
+function TaskList({ taskList, onModifyTaskList, onAddTask }: TaskListProps) {
+  const [taskText, setTaskText] = useState<string>("");
+  const [inputMode, setInputMode] = useState<"search" | "add">("add");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortFilterSettings, setSortFilterSettings] = useState(() => {
     const savedSettings = localStorage.getItem("savedSettings");
@@ -49,6 +53,11 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
 
   function filterList(taskList: Task[]) {
     let filteredList = [...taskList];
+    if (searchQuery) {
+      filteredList = filteredList.filter((task) =>
+        task.text.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     if (sortFilterSettings.filter === "completed") {
       filteredList = filteredList.filter((task) => task.completed);
     } else if (sortFilterSettings.filter === "active") {
@@ -62,7 +71,29 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
   return (
     <div>
       <div>
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <button>S|T</button>
+        {inputMode === "add" ? (
+          <>
+            <button onClick={() => setInputMode("search")}>Toggle</button>
+            <TaskListForm
+              taskText={taskText}
+              setTaskText={setTaskText}
+              onAddTask={onAddTask}
+            />
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                setInputMode("add");
+                setSearchQuery("");
+              }}
+            >
+              Toggle
+            </button>
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          </>
+        )}
         <SortDropdown
           sortBy={sortFilterSettings.sortBy}
           setSortBy={(value) => updateSortFilterSettings({ sortBy: value })}

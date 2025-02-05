@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Task } from "../types";
 
 interface TaskListFormProps {
   onAddTask: (task: Task) => void;
+  taskText: string;
+  setTaskText: (taskText: string) => void;
 }
 
-function TaskListForm({ onAddTask }: TaskListFormProps) {
-  const [taskText, setTaskText] = useState<string>("");
+function TaskListForm({ onAddTask, taskText, setTaskText }: TaskListFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
@@ -31,7 +31,6 @@ function TaskListForm({ onAddTask }: TaskListFormProps) {
         onChange={(e) => setTaskText(e.target.value)}
         placeholder="Add a task..."
       />
-      <button type="submit">Submit</button>
     </form>
   );
 }

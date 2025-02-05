@@ -24,8 +24,11 @@ function App() {
 
   return (
     <>
-      <TaskListForm onAddTask={addTask} />
-      <TaskList taskList={taskList} onModifyTaskList={modifyTaskList} />
+      <TaskList
+        onAddTask={addTask}
+        taskList={taskList}
+        onModifyTaskList={modifyTaskList}
+      />
     </>
   );
 }

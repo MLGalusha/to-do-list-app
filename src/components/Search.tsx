@@ -13,14 +13,14 @@ function Search({ searchQuery, setSearchQuery }: SearchProps) {
     return;
   }
   return (
-    <>
+    <form>
       <input
         type="text"
         value={searchQuery}
         onChange={(e) => querySearch(e.target.value)}
         placeholder="Search a task..."
       />
-    </>
+    </form>
   );
 }
 
