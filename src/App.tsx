@@ -5,8 +5,8 @@ import { Task } from "./types";
 
 function App() {
   const [taskList, setTaskList] = useState<Task[]>(() => {
-    const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
+    const savedTaskList = localStorage.getItem("tasks");
+    return savedTaskList ? JSON.parse(savedTaskList) : [];
   });
 
   useEffect(() => {
@@ -21,6 +21,7 @@ function App() {
   function modifyTaskList(newTaskList: Task[]) {
     setTaskList(newTaskList);
   }
+
   return (
     <>
       <TaskListForm onAddTask={addTask} />

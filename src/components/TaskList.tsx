@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Task } from "../types";
+import FilterDropdown from "./FilterDropdown";
 import SortDropdown from "./SortDropdown";
 import TaskItem from "./TaskItem";
-import FilterDropdown from "./FilterDropdown";
 import Search from "./Search";
 
 interface TaskListProps {
   taskList: Task[];
-  onModifyTaskList: (newTaskList: Task[]) => void;
+  onModifyTaskList: (taskList: Task[]) => void;
 }
 
 function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
@@ -18,6 +18,7 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
       ? JSON.parse(savedSettings)
       : { sortBy: "order-added", sortDirection: "ascending", filter: "all" };
   });
+
   function updateSortFilterSettings(
     newSettings: Partial<typeof sortFilterSettings>
   ) {
@@ -27,7 +28,7 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
   }
 
   function sortList(filteredList: Task[]) {
-    let sortedList: Task[] = [...filteredList];
+    let sortedList = [...filteredList];
     if (sortFilterSettings.sortDirection === "ascending") {
       if (sortFilterSettings.sortBy === "title") {
         sortedList.sort((a, b) => a.text.localeCompare(b.text));
@@ -48,12 +49,6 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
 
   function filterList(taskList: Task[]) {
     let filteredList = [...taskList];
-
-    if (searchQuery.trim()) {
-      filteredList = filteredList.filter((task) =>
-        task.text.toLowerCase().includes(searchQuery.toLowerCase().trim())
-      );
-    }
     if (sortFilterSettings.filter === "completed") {
       filteredList = filteredList.filter((task) => task.completed);
     } else if (sortFilterSettings.filter === "active") {
@@ -76,14 +71,13 @@ function TaskList({ taskList, onModifyTaskList }: TaskListProps) {
             updateSortFilterSettings({ sortDirection: value })
           }
         />
-
         <FilterDropdown
           filter={sortFilterSettings.filter}
           setFilter={(value) => updateSortFilterSettings({ filter: value })}
         />
       </div>
       <ul>
-        {finalList.map((task: Task) => (
+        {finalList.map((task) => (
           <TaskItem
             key={task.id}
             task={task}

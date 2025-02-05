@@ -1,5 +1,4 @@
 .completed-task {
+    color: lightseagreen;
     font: bold;
-    color: lightgreen;
-    text-decoration: line-through;
 }

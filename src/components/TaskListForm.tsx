@@ -6,28 +6,29 @@ interface TaskListFormProps {
 }
 
 function TaskListForm({ onAddTask }: TaskListFormProps) {
-  const [task, setTask] = useState("");
-
+  const [taskText, setTaskText] = useState<string>("");
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!task.trim()) return;
+    if (!taskText.trim()) return;
+    console.log(taskText);
 
-    const newTask: Task = {
+    const newTaskList: Task = {
       id: crypto.randomUUID(),
-      text: task,
+      text: taskText,
       completed: false,
     };
-    console.log(newTask);
-    onAddTask(newTask);
-    setTask("");
+
+    onAddTask(newTaskList);
+    setTaskText("");
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
+        value={taskText}
+        onChange={(e) => setTaskText(e.target.value)}
         placeholder="Add a task..."
       />
       <button type="submit">Submit</button>

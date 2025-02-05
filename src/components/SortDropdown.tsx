@@ -15,10 +15,11 @@ function SortDropdown({
   setSortDirection,
 }: SortDropdownProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
   return (
     <>
-      <button className="sort-button" onClick={() => setMenuOpen(!menuOpen)} />
+      <button className="sort-button" onClick={() => setMenuOpen(!menuOpen)}>
+        Sort
+      </button>
       {menuOpen && (
         <div className="sort-dropdown-menu">
           <ul>
@@ -41,16 +42,6 @@ function SortDropdown({
               Order Added
             </li>
           </ul>
-          <svg width="120" height="5" xmlns="http://www.w3.org/2000/svg">
-            <line
-              x1="15"
-              y1="0"
-              x2="120"
-              y2="0"
-              stroke="#ff4600"
-              strokeWidth="1"
-            />
-          </svg>
           <ul>
             <li
               className={sortDirection === "ascending" ? "sort-selected" : ""}

@@ -5,12 +5,12 @@ import "./styles/TaskItem.css";
 interface TaskItemProps {
   task: Task;
   taskList: Task[];
-  onModifyTaskList: (newTaskList: Task[]) => void;
+  onModifyTaskList: (taskList: Task[]) => void;
 }
 
 function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
   const [editing, setEditing] = useState<boolean>(false);
-  const [editText, setEditText] = useState(task.text);
+  const [editText, setEditText] = useState<string>(task.text);
 
   function deleteTask() {
     const newTaskList = taskList.filter((t) => t.id !== task.id);
@@ -19,18 +19,27 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
 
   function saveEdit() {
     if (!editText.trim()) return;
-    const updatedTaskList = taskList.map((t) =>
-      t.id === task.id ? { ...t, text: editText } : t
-    );
-    onModifyTaskList(updatedTaskList);
+
+    const newTaskList = taskList.map((t) => {
+      if (t.id === task.id) {
+        return { ...task, text: editText };
+      } else {
+        return t;
+      }
+    });
+    onModifyTaskList(newTaskList);
     setEditing(false);
   }
 
   function completeTask() {
-    const updatedTaskList = taskList.map((t) =>
-      t.id === task.id ? { ...t, completed: true } : t
-    );
-    onModifyTaskList(updatedTaskList);
+    const newTaskList = taskList.map((t) => {
+      if (t.id === task.id) {
+        return { ...task, completed: true };
+      } else {
+        return t;
+      }
+    });
+    onModifyTaskList(newTaskList);
   }
   return (
     <li>

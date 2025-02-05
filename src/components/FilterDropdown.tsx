@@ -8,13 +8,11 @@ interface FilterDropdownProps {
 
 function FilterDropdown({ filter, setFilter }: FilterDropdownProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
   return (
     <>
-      <button
-        className="filter-button"
-        onClick={() => setMenuOpen(!menuOpen)}
-      />
+      <button className="filter-button" onClick={() => setMenuOpen(!menuOpen)}>
+        Filter
+      </button>
       {menuOpen && (
         <div className="filter-dropdown-menu">
           <ul>
@@ -42,4 +40,5 @@ function FilterDropdown({ filter, setFilter }: FilterDropdownProps) {
     </>
   );
 }
+
 export default FilterDropdown;
