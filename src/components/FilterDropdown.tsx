@@ -3,41 +3,39 @@ import "./styles/DropDown.css";
 
 interface FilterDropDownProps {
   filter: string;
-  setFilter: (filter: string) => void;
+  onSetFilter: (filter: string) => void;
 }
 
-function FilterDropDown({ filter, setFilter }: FilterDropDownProps) {
+function FilterDropDown({ filter, onSetFilter }: FilterDropDownProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
-    <>
-      <button className="filter-button" onClick={() => setMenuOpen(!menuOpen)}>
-        Filter
-      </button>
+    <div>
+      <button onClick={() => setMenuOpen(!menuOpen)}>Filter</button>
       {menuOpen && (
         <div className="filter-dropdown-menu">
           <ul>
             <li
-              className={filter === "all" ? "filter-selected" : ""}
-              onClick={() => setFilter("all")}
+              className={filter === "all" ? "selected" : ""}
+              onClick={() => onSetFilter("all")}
             >
               All
             </li>
             <li
-              className={filter === "completed" ? "filter-selected" : ""}
-              onClick={() => setFilter("completed")}
+              className={filter === "completed" ? "selected" : ""}
+              onClick={() => onSetFilter("completed")}
             >
               Completed
             </li>
             <li
-              className={filter === "active" ? "filter-selected" : ""}
-              onClick={() => setFilter("active")}
+              className={filter === "active" ? "selected" : ""}
+              onClick={() => onSetFilter("active")}
             >
               Active
             </li>
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

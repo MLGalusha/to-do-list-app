@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Task } from "./types";
 import TaskList from "./components/TaskList";
+import { Task } from "./types";
 
 function App() {
   const [taskList, setTaskList] = useState<Task[]>(() => {
@@ -20,13 +20,12 @@ function App() {
   function modifyTaskList(newTaskList: Task[]) {
     setTaskList(newTaskList);
   }
-
   return (
     <>
       <TaskList
         onAddTask={addTask}
-        taskList={taskList}
         onModifyTaskList={modifyTaskList}
+        taskList={taskList}
       />
     </>
   );

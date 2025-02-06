@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Task } from "../types";
-import "./styles/TaskItem.css";
+import("./styles/TaskItem.css");
 
 interface TaskItemProps {
   task: Task;
@@ -9,64 +9,71 @@ interface TaskItemProps {
 }
 
 function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
-  const [editing, setEditing] = useState<boolean>(false);
-  const [editText, setEditText] = useState<string>(task.text);
-
-  function deleteTask() {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [textEdit, setTextEdit] = useState<string>(task.text);
+  function onDelete() {
     const newTaskList = taskList.filter((t) => t.id !== task.id);
     onModifyTaskList(newTaskList);
   }
 
   function saveEdit() {
-    if (!editText.trim()) return;
-
+    if (!textEdit.trim()) return;
     const newTaskList = taskList.map((t) => {
       if (t.id === task.id) {
-        return { ...task, text: editText };
+        return { ...t, text: textEdit };
       } else {
         return t;
       }
     });
     onModifyTaskList(newTaskList);
-    setEditing(false);
+    setIsEditing(false);
   }
-
-  function completeTask() {
+  function completeTaskToggle() {
     const newTaskList = taskList.map((t) => {
       if (t.id === task.id) {
-        return { ...task, completed: true };
+        return { ...t, completed: !task.completed };
       } else {
         return t;
       }
     });
     onModifyTaskList(newTaskList);
   }
-
   return (
-    <li>
-      {task.completed ? (
-        <div className="completed-task">
-          {task.text.toUpperCase()} COMPLETED
-        </div>
-      ) : editing ? (
-        <>
-          <input
-            type="text"
-            value={editText}
-            onChange={(e) => setEditText(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && saveEdit()}
-          />
-          <button onClick={() => saveEdit()}>Save</button>
-        </>
-      ) : (
-        <>
-          {task.text}
-          <button onClick={() => deleteTask()}>Delete</button>
-          <button onClick={() => setEditing(true)}>Edit</button>
-          <button onClick={() => completeTask()}>◊</button>
-        </>
-      )}
-    </li>
+    <div>
+      <ul>
+        {task.completed ? (
+          <li
+            className="completed-task"
+            onDoubleClick={() => completeTaskToggle()}
+          >
+            {task.text.toUpperCase()} COMPLETED
+          </li>
+        ) : isEditing ? (
+          <>
+            <input
+              type="text"
+              value={textEdit}
+              onChange={(e) => {
+                if (e.target.value.trim()) {
+                  setTextEdit(e.target.value);
+                } else {
+                  setTextEdit("");
+                }
+              }}
+              onKeyDown={(e) => e.key === "Enter" && saveEdit()}
+            />
+            <button onClick={() => saveEdit()}>Save</button>
+          </>
+        ) : (
+          <li>
+            {task.text}
+            <button onClick={() => onDelete()}>Delete</button>
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+            <button onClick={() => completeTaskToggle()}>◊</button>
+          </li>
+        )}
+      </ul>
+    </div>
   );
 }
 

@@ -1,15 +1,15 @@
 interface SearchProps {
   searchQuery: string;
-  setSearchQuery: (query: string) => void;
+  onSetSearchQuery: (searchQuery: string) => void;
 }
 
-function Search({ searchQuery, setSearchQuery }: SearchProps) {
+function Search({ searchQuery, onSetSearchQuery }: SearchProps) {
   return (
     <form>
       <input
         type="text"
         value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => onSetSearchQuery(e.target.value)}
         placeholder="Search a task..."
       />
     </form>

@@ -1,74 +1,65 @@
 import { useState } from "react";
 import "./styles/DropDown.css";
 
-interface SortDropDownProps {
+interface SortDropDownPops {
   sortBy: string;
-  setSortBy: (sortBy: string) => void;
+  onSetSortBy: (sortBy: string) => void;
   sortDirection: string;
-  setSortDirection: (sortDirection: string) => void;
+  onSetSortDirection: (sortDirection: string) => void;
 }
 
 function SortDropDown({
   sortBy,
-  setSortBy,
   sortDirection,
-  setSortDirection,
-}: SortDropDownProps) {
+  onSetSortBy,
+  onSetSortDirection,
+}: SortDropDownPops) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
-    <>
-      <button className="sort-button" onClick={() => setMenuOpen(!menuOpen)}>
-        Sort
-      </button>
+    <div>
+      <button onClick={() => setMenuOpen(!menuOpen)}>Sort</button>
       {menuOpen && (
         <div className="sort-dropdown-menu">
           <ul>
             <li
-              className={sortBy === "title" ? "sort-selected" : ""}
-              onClick={() => setSortBy("title")}
+              className={sortBy === "order-added" ? "selected" : ""}
+              onClick={() => onSetSortBy("order-added")}
+            >
+              Order Added
+            </li>
+            <li
+              className={sortBy === "title" ? "selected" : ""}
+              onClick={() => onSetSortBy("title")}
             >
               Title
             </li>
             <li
-              className={sortBy === "completed" ? "sort-selected" : ""}
-              onClick={() => setSortBy("completed")}
+              className={sortBy === "completed" ? "selected" : ""}
+              onClick={() => onSetSortBy("completed")}
             >
               Completed
             </li>
-            <li
-              className={sortBy === "order-added" ? "sort-selected" : ""}
-              onClick={() => setSortBy("order-added")}
-            >
-              Order Added
-            </li>
           </ul>
-          <svg width="200" height="5">
-            <line
-              x1="2"
-              y1="2"
-              x2="150"
-              y2="2"
-              stroke="white"
-              strokeWidth="1"
-            />
+          <svg width="200" height="5" stroke="white" strokeWidth="1">
+            <line x1="15" y1="5" x2="150" y2="5" />
           </svg>
           <ul>
             <li
-              className={sortDirection === "ascending" ? "sort-selected" : ""}
-              onClick={() => setSortDirection("ascending")}
+              className={sortDirection === "ascending" ? "selected" : ""}
+              onClick={() => onSetSortDirection("ascending")}
             >
               Ascending
             </li>
             <li
-              className={sortDirection === "descending" ? "sort-selected" : ""}
-              onClick={() => setSortDirection("descending")}
+              className={sortDirection === "descending" ? "selected" : ""}
+              onClick={() => onSetSortDirection("descending")}
             >
               Descending
             </li>
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

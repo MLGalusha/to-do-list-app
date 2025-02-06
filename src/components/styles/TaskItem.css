@@ -1,4 +1,11 @@
 .completed-task {
-    color:lightseagreen;
+    color:rgb(83, 212, 212);
     font: bold;
+    transition: transform 1s ease;
+}
+
+.completed-task:hover {
+    transform: scale(1.05);
+    color:rgb(4, 250, 250);
+    font: bolder;
 }

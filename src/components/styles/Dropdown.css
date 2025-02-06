@@ -1,15 +1,13 @@
-.filter-selected{
-    color:red;
-    font: bold;
+.selected {
+    color: red;
 }
-
-.sort-selected{
-    color:red;
-    font: bold;
-}
-
 
 .filter-dropdown-menu,
-.sort-dropdown-menu{
-    background-color: black;
+.sort-dropdown-menu {
+    background-color:black;
+}
+
+.filter-dropdown-menu li,
+.sort-dropdown-menu li {
+    list-style: none;
 }

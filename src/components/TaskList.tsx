@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { Task } from "../types";
 import TaskListForm from "./TaskListForm";
 import TaskItem from "./TaskItem";
-import { useState } from "react";
-import SortDropDown from "./SortDropDown";
 import FilterDropDown from "./FilterDropDown";
+import SortDropDown from "./SortDropDown";
 import Search from "./Search";
 
 interface TaskListProps {
@@ -12,15 +12,19 @@ interface TaskListProps {
   onModifyTaskList: (taskList: Task[]) => void;
 }
 
-function TaskList({ onAddTask, taskList, onModifyTaskList }: TaskListProps) {
-  const [taskText, setTaskText] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState("");
+function TaskList({ taskList, onAddTask, onModifyTaskList }: TaskListProps) {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [inputMode, setInputMode] = useState<"search" | "add">("add");
+  const [taskText, setTaskText] = useState<string>("");
   const [sortFilterSettings, setSortFilterSettings] = useState(() => {
     const savedSettings = localStorage.getItem("savedSettings");
     return savedSettings
       ? JSON.parse(savedSettings)
-      : { sortBy: "order-added", sortDirection: "ascending", filter: "all" };
+      : {
+          sortBy: "order-added",
+          sortDirection: "ascending",
+          filter: "all",
+        };
   });
 
   function updateSortFilterSettings(
@@ -69,18 +73,18 @@ function TaskList({ onAddTask, taskList, onModifyTaskList }: TaskListProps) {
   const finalList = filterList(taskList);
 
   return (
-    <div>
+    <>
       {inputMode === "add" ? (
-        <>
+        <div>
           <button onClick={() => setInputMode("search")}>Toggle</button>
           <TaskListForm
+            onAddTask={onAddTask}
             taskText={taskText}
             setTaskText={setTaskText}
-            onAddTask={onAddTask}
           />
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <button
             onClick={() => {
               setInputMode("add");
@@ -89,32 +93,30 @@ function TaskList({ onAddTask, taskList, onModifyTaskList }: TaskListProps) {
           >
             Toggle
           </button>
-          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        </>
+          <Search searchQuery={searchQuery} onSetSearchQuery={setSearchQuery} />
+        </div>
       )}
       <SortDropDown
         sortBy={sortFilterSettings.sortBy}
-        setSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
+        onSetSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
         sortDirection={sortFilterSettings.sortDirection}
-        setSortDirection={(value) =>
+        onSetSortDirection={(value) =>
           updateSortFilterSettings({ sortDirection: value })
         }
       />
       <FilterDropDown
         filter={sortFilterSettings.filter}
-        setFilter={(value) => updateSortFilterSettings({ filter: value })}
+        onSetFilter={(value) => updateSortFilterSettings({ filter: value })}
       />
-      <ul>
-        {finalList.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            taskList={taskList}
-            onModifyTaskList={onModifyTaskList}
-          />
-        ))}
-      </ul>
-    </div>
+      {finalList.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          taskList={taskList}
+          onModifyTaskList={onModifyTaskList}
+        />
+      ))}
+    </>
   );
 }
 
