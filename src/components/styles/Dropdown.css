@@ -1,10 +1,15 @@
-.filter-dropdown-menu,
-.sort-dropdown-menu {
-    background-color: black;
-
+.filter-selected{
+    color:red;
+    font: bold;
 }
 
-.sort-selected,
-.filter-selected {
+.sort-selected{
     color:red;
+    font: bold;
+}
+
+
+.filter-dropdown-menu,
+.sort-dropdown-menu{
+    background-color: black;
 }

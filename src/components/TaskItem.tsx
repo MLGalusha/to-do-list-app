@@ -41,6 +41,7 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
     });
     onModifyTaskList(newTaskList);
   }
+
   return (
     <li>
       {task.completed ? (

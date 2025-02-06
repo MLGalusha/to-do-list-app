@@ -1,19 +1,19 @@
 import { useState } from "react";
-import "./styles/Dropdown.css";
+import "./styles/DropDown.css";
 
-interface SortDropdownProps {
+interface SortDropDownProps {
   sortBy: string;
   setSortBy: (sortBy: string) => void;
   sortDirection: string;
   setSortDirection: (sortDirection: string) => void;
 }
 
-function SortDropdown({
+function SortDropDown({
   sortBy,
   setSortBy,
   sortDirection,
   setSortDirection,
-}: SortDropdownProps) {
+}: SortDropDownProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
     <>
@@ -42,6 +42,16 @@ function SortDropdown({
               Order Added
             </li>
           </ul>
+          <svg width="200" height="5">
+            <line
+              x1="2"
+              y1="2"
+              x2="150"
+              y2="2"
+              stroke="white"
+              strokeWidth="1"
+            />
+          </svg>
           <ul>
             <li
               className={sortDirection === "ascending" ? "sort-selected" : ""}
@@ -62,4 +72,4 @@ function SortDropdown({
   );
 }
 
-export default SortDropdown;
+export default SortDropDown;

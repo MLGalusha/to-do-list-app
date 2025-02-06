@@ -1,21 +1,21 @@
-import { useState } from "react";
 import { Task } from "../types";
-import FilterDropdown from "./FilterDropDown.tsx";
-import SortDropdown from "./SortDropDown.tsx";
+import TaskListForm from "./TaskListForm";
 import TaskItem from "./TaskItem";
+import { useState } from "react";
+import SortDropDown from "./SortDropDown";
+import FilterDropDown from "./FilterDropDown";
 import Search from "./Search";
-import TaskListForm from "./TaskListForm.tsx";
 
 interface TaskListProps {
   taskList: Task[];
-  onModifyTaskList: (taskList: Task[]) => void;
   onAddTask: (task: Task) => void;
+  onModifyTaskList: (taskList: Task[]) => void;
 }
 
-function TaskList({ taskList, onModifyTaskList, onAddTask }: TaskListProps) {
+function TaskList({ onAddTask, taskList, onModifyTaskList }: TaskListProps) {
   const [taskText, setTaskText] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [inputMode, setInputMode] = useState<"search" | "add">("add");
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortFilterSettings, setSortFilterSettings] = useState(() => {
     const savedSettings = localStorage.getItem("savedSettings");
     return savedSettings
@@ -70,43 +70,40 @@ function TaskList({ taskList, onModifyTaskList, onAddTask }: TaskListProps) {
 
   return (
     <div>
-      <div>
-        <button>S|T</button>
-        {inputMode === "add" ? (
-          <>
-            <button onClick={() => setInputMode("search")}>Toggle</button>
-            <TaskListForm
-              taskText={taskText}
-              setTaskText={setTaskText}
-              onAddTask={onAddTask}
-            />
-          </>
-        ) : (
-          <>
-            <button
-              onClick={() => {
-                setInputMode("add");
-                setSearchQuery("");
-              }}
-            >
-              Toggle
-            </button>
-            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          </>
-        )}
-        <SortDropdown
-          sortBy={sortFilterSettings.sortBy}
-          setSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
-          sortDirection={sortFilterSettings.sortDirection}
-          setSortDirection={(value) =>
-            updateSortFilterSettings({ sortDirection: value })
-          }
-        />
-        <FilterDropdown
-          filter={sortFilterSettings.filter}
-          setFilter={(value) => updateSortFilterSettings({ filter: value })}
-        />
-      </div>
+      {inputMode === "add" ? (
+        <>
+          <button onClick={() => setInputMode("search")}>Toggle</button>
+          <TaskListForm
+            taskText={taskText}
+            setTaskText={setTaskText}
+            onAddTask={onAddTask}
+          />
+        </>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              setInputMode("add");
+              setSearchQuery("");
+            }}
+          >
+            Toggle
+          </button>
+          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        </>
+      )}
+      <SortDropDown
+        sortBy={sortFilterSettings.sortBy}
+        setSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
+        sortDirection={sortFilterSettings.sortDirection}
+        setSortDirection={(value) =>
+          updateSortFilterSettings({ sortDirection: value })
+        }
+      />
+      <FilterDropDown
+        filter={sortFilterSettings.filter}
+        setFilter={(value) => updateSortFilterSettings({ filter: value })}
+      />
       <ul>
         {finalList.map((task) => (
           <TaskItem

@@ -10,19 +10,16 @@ function TaskListForm({ onAddTask, taskText, setTaskText }: TaskListFormProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!taskText.trim()) return;
-    console.log(taskText);
-
-    const newTaskList: Task = {
+    if (!taskText.trim()) return; // Don't submit empty task
+    const newTask = {
       id: crypto.randomUUID(),
       text: taskText,
       completed: false,
     };
-
-    onAddTask(newTaskList);
+    onAddTask(newTask);
+    console.log(newTask);
     setTaskText("");
   }
-
   return (
     <form onSubmit={handleSubmit}>
       <input

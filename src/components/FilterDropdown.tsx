@@ -1,12 +1,12 @@
 import { useState } from "react";
-import "./styles/Dropdown.css";
+import "./styles/DropDown.css";
 
-interface FilterDropdownProps {
+interface FilterDropDownProps {
   filter: string;
   setFilter: (filter: string) => void;
 }
 
-function FilterDropdown({ filter, setFilter }: FilterDropdownProps) {
+function FilterDropDown({ filter, setFilter }: FilterDropDownProps) {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
     <>
@@ -41,4 +41,4 @@ function FilterDropdown({ filter, setFilter }: FilterDropdownProps) {
   );
 }
 
-export default FilterDropdown;
+export default FilterDropDown;
