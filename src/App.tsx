@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList";
 import { Task } from "./types";
+import "./components/styles/App.css";
 
 function App() {
   const [taskList, setTaskList] = useState<Task[]>(() => {
@@ -21,13 +22,13 @@ function App() {
     setTaskList(newTaskList);
   }
   return (
-    <>
+    <div className="app-wrap">
       <TaskList
         onAddTask={addTask}
         onModifyTaskList={modifyTaskList}
         taskList={taskList}
       />
-    </>
+    </div>
   );
 }
 

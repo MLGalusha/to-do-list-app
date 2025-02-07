@@ -1,0 +1,94 @@
+
+.text-input.search {
+    background: #F6EEC9;
+    box-shadow: 0 0 100px 0 #F6EEC9,
+                0 20px 25px 0 rgba(0, 0, 0, 0.2);
+    color: #C93F2B;
+}
+
+.text-input.add {
+    background: #C93F2B;
+    box-shadow: 0 0 100px 0 #C93F2B,
+                0 20px 25px 0 rgba(0, 0, 0, 0.2);
+    color: #F6EEC9;
+}
+
+.text-input {
+    font-weight: 100;
+    font-size: .9rem;
+    height: 50px;
+    width: 300px;
+    border: none;
+    padding-left: 25px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.text-input:placeholder {
+    font-size: .9rem;
+    font-weight: 100;
+}
+
+.text-input.search::placeholder {
+    color: #C93F2B;
+}
+
+.text-input.add::placeholder {
+    color: #F6EEC9;
+}
+
+@keyframes blink-placeholder {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.toggle-button.search {
+    background-image: url("../../assets/orange-drip.svg");
+    filter: drop-shadow(5px 5px 10px #F6EEC9);
+    color: #F6EEC9;
+}
+
+.toggle-button.add {
+    background-image: url("../../assets/tan-drip.svg");
+    filter: drop-shadow(5px 5px 10px #C93F2B);
+    color: #C93F2B;
+}
+
+
+.toggle-icon {
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    top: -1rem;
+    left: 1rem;
+    z-index: 10;
+}
+
+/* 1. Basic container setup */
+.button-input-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* 3. The button defaults (search vs add) */
+  .toggle-button {
+    background-color: transparent;
+    position: relative;
+    left: -5.15rem;
+    height: 50px;
+    width: 90px;
+    background-size: 170px 170px;
+    overflow: visible; /* Path to your SVG */
+    background-repeat: no-repeat; /* Prevents repeating */
+    background-position: center;
+    border: none;
+    transition: transform 0.3s ease;
+    z-index: 2;
+  }
+
+  /* 4. The "animating" class triggers our keyframes */
+  .toggle-button.animating {
+    animation: expandFill 1s forwards ease-in-out;
+  }

@@ -5,6 +5,7 @@ import TaskItem from "./TaskItem";
 import FilterDropDown from "./FilterDropDown";
 import SortDropDown from "./SortDropDown";
 import Search from "./Search";
+import "./styles/TaskList.css";
 
 interface TaskListProps {
   taskList: Task[];
@@ -73,27 +74,25 @@ function TaskList({ taskList, onAddTask, onModifyTaskList }: TaskListProps) {
   const finalList = filterList(taskList);
 
   return (
-    <>
+    <div className="wrap">
       {inputMode === "add" ? (
-        <div>
-          <button onClick={() => setInputMode("search")}>Toggle</button>
+        <div className="input-container">
           <TaskListForm
             onAddTask={onAddTask}
             taskText={taskText}
             setTaskText={setTaskText}
+            onSetInputMode={setInputMode}
+            inputMode={inputMode}
           />
         </div>
       ) : (
-        <div>
-          <button
-            onClick={() => {
-              setInputMode("add");
-              setSearchQuery("");
-            }}
-          >
-            Toggle
-          </button>
-          <Search searchQuery={searchQuery} onSetSearchQuery={setSearchQuery} />
+        <div className="input-container">
+          <Search
+            searchQuery={searchQuery}
+            onSetSearchQuery={setSearchQuery}
+            onSetInputMode={setInputMode}
+            inputMode={inputMode}
+          />
         </div>
       )}
       <SortDropDown
@@ -108,15 +107,17 @@ function TaskList({ taskList, onAddTask, onModifyTaskList }: TaskListProps) {
         filter={sortFilterSettings.filter}
         onSetFilter={(value) => updateSortFilterSettings({ filter: value })}
       />
-      {finalList.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          taskList={taskList}
-          onModifyTaskList={onModifyTaskList}
-        />
-      ))}
-    </>
+      <div className="task-list-wrap">
+        {finalList.map((task) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            taskList={taskList}
+            onModifyTaskList={onModifyTaskList}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

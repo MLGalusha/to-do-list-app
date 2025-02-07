@@ -4,7 +4,10 @@
 
 .filter-dropdown-menu,
 .sort-dropdown-menu {
-    background-color:black;
+    background-color:#799AA3;
+    border-radius: 10px;
+    box-shadow: 0 0 40px 0 #799AA3,
+                0 20px 25px 0 rgba(0, 0, 0, 0.2);
 }
 
 .filter-dropdown-menu li,

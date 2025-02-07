@@ -1,0 +1,11 @@
+.task-list-wrap {
+    display: block;
+    width: 100%;
+    border: 3px solid green;
+    align-content: center;
+}
+
+.input-container {
+    position: relative;
+    display: inline-block;
+}
