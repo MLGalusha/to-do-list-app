@@ -1,7 +1,7 @@
 import { Task } from "../types";
 import "./styles/Input.css";
 import SearchIcon from "../assets/magnify.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TaskListFormProps {
   onAddTask: (task: Task) => void;
@@ -34,27 +34,38 @@ function TaskListForm({
   }
   // A "state" that toggles the animation
   const [expanded, setExpanded] = useState(false);
+  const [triggerSwitch, setTriggerSwitch] = useState(false); // NEW STATE TO TRIGGER EFFECT
+
+  // Effect to handle delay
+  useEffect(() => {
+    if (triggerSwitch) {
+      const timeout = setTimeout(() => {
+        onSetInputMode(inputMode === "search" ? "add" : "search");
+        setTriggerSwitch(false); // Reset trigger
+      }, 500); // 1 second delay
+
+      return () => clearTimeout(timeout); // Cleanup
+    }
+  }, [triggerSwitch]); // Runs when `triggerSwitch` changes
 
   function handleButtonClick() {
-    // Trigger the entire animation
+    console.log("Before:", expanded);
     setExpanded(true);
-
-    // Switch the mode (optional)
-    onSetInputMode(inputMode === "search" ? "add" : "search");
-
-    // If you want the animation to reset after finishing,
-    // you could use a timeout or some other approach:
-    setTimeout(() => {
-      setExpanded(false);
-    }, 1000); // 1 second (the duration of your animation)
+    setTriggerSwitch(true); // Trigger useEffect
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="search-add-form">
       {/* Wrap the button + input together */}
+      <div
+        className={`
+            input-shadow
+            ${inputMode}
+          `}
+      />
       <div className="button-input-wrapper">
         <input
-          className={`text-input ${inputMode}`}
+          className={`text-input ${inputMode} ${expanded ? "animating" : ""}`}
           type="text"
           value={taskText}
           onChange={(e) => setTaskText(e.target.value)}
@@ -69,7 +80,20 @@ function TaskListForm({
           `}
           onClick={handleButtonClick}
         >
-          <img src={SearchIcon} className="toggle-icon" alt="toggle" />
+          <img
+            src={SearchIcon}
+            className={`
+            toggle-icon
+            ${expanded ? "animating" : ""}`}
+            alt="toggle"
+          />
+          <div
+            className={`
+            input-rectangle
+            ${inputMode}
+            ${expanded ? "animating" : ""}
+          `}
+          />
         </button>
       </div>
     </form>

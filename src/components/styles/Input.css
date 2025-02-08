@@ -1,32 +1,115 @@
+/* ========================= */
+/* GLOBAL STYLES */
+/* ========================= */
+
+.text-input {
+    display: block;
+    position: relative;
+    top: 0rem;
+    left: 3rem;
+    font: normal normal 100 .8rem monospace;
+    height: 3.05rem;
+    width: 14rem;
+    border: none;
+    padding-left: 25px;
+    padding-right: 0px;
+    opacity: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 30px;
+    outline: none;
+    z-index: 2;
+}
+
+.input-rectangle {
+    position: relative;
+    top: -0.1rem;
+    left: 2rem;
+    height: 3.2rem;
+    width: 21rem;
+    z-index: 6;
+    opacity: 100%;
+    overflow: hidden;
+    border-radius: 23px;
+}
+
+.button-input-wrapper {
+    position: relative;
+    top: 1rem;
+    left: 0rem;
+    width: 23rem;
+    height: 3.2rem;
+    border-radius: 30px;
+    border: none;
+    overflow: hidden;
+}
+
+
+/*CHANGE THE LOCATION OF THE INPUT HERE*/
+.search-add-form {
+    position: relative;
+    top: 1rem;
+    left: 1rem;
+}
+
+/* ========================= */
+/* TEXT INPUT STYLES */
+/* ========================= */
 
 .text-input.search {
     background: #F6EEC9;
-    box-shadow: 0 0 100px 0 #F6EEC9,
-                0 20px 25px 0 rgba(0, 0, 0, 0.2);
     color: #C93F2B;
 }
 
 .text-input.add {
     background: #C93F2B;
-    box-shadow: 0 0 100px 0 #C93F2B,
-                0 20px 25px 0 rgba(0, 0, 0, 0.2);
     color: #F6EEC9;
 }
 
-.text-input {
-    font-weight: 100;
-    font-size: .9rem;
-    height: 50px;
-    width: 300px;
-    border: none;
-    padding-left: 25px;
-    border-radius: 30px;
-    overflow: hidden;
+/* ========================= */
+/* INPUT RECTANGLES */
+/* ========================= */
+
+.input-rectangle.search {
+    animation: renderTaskSearch 0.5s forwards ease-in-out;
 }
 
-.text-input:placeholder {
-    font-size: .9rem;
-    font-weight: 100;
+.input-rectangle.add {
+    animation: renderTaskRect 0.5s forwards ease-in-out;
+}
+
+/* ========================= */
+/* INPUT SHADOW */
+/* ========================= */
+.input-shadow {
+    position: absolute;
+    top: 1rem;
+    left: 3rem;
+    height: 3.2rem;
+    width: 19.9rem;
+    border-radius: 30px;
+    transition: 5s ease-in-out;
+    z-index: 1;
+}
+
+.input-shadow.search {
+    background-color: #F6EEC9;
+    box-shadow: 0 0 100px 0 #F6EEC9,
+                0 20px 25px 0 rgba(0, 0, 0, 0.2);
+}
+
+.input-shadow.add {
+    background-color: #C93F2B;
+    box-shadow: 0 0 100px 0 #C93F2B,
+                0 20px 25px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ========================= */
+/* PLACEHOLDER STYLES */
+/* ========================= */
+
+.text-input::placeholder {
+    font: normal normal 100 .8rem monospace;
 }
 
 .text-input.search::placeholder {
@@ -37,24 +120,44 @@
     color: #F6EEC9;
 }
 
-@keyframes blink-placeholder {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
-    100% {opacity: 1;}
+/* ========================= */
+/* TOGGLE BUTTON STYLES */
+/* ========================= */
+
+.toggle-button {
+    background-color: transparent;
+    position: relative;
+    top: -3.15rem;
+    left: 18rem;
+    height: 50px;
+    width: 90px;
+    background-size: 170px 170px;
+    overflow: visible;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    z-index: 2;
 }
 
 .toggle-button.search {
     background-image: url("../../assets/orange-drip.svg");
-    filter: drop-shadow(5px 5px 10px #F6EEC9);
     color: #F6EEC9;
+    animation: renderSearchButton 0.5s forwards ease-in-out;
 }
 
 .toggle-button.add {
     background-image: url("../../assets/tan-drip.svg");
-    filter: drop-shadow(5px 5px 10px #C93F2B);
     color: #C93F2B;
+    animation: renderTaskButton 0.5s forwards ease-in-out;
 }
 
+.toggle-button.search.animating {
+    filter: none;
+}
+
+/* ========================= */
+/* TOGGLE ICON STYLES */
+/* ========================= */
 
 .toggle-icon {
     position: absolute;
@@ -63,32 +166,103 @@
     top: -1rem;
     left: 1rem;
     z-index: 10;
+    animation: showIcon 0.5s forwards ease-in-out;
 }
 
-/* 1. Basic container setup */
-.button-input-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-  }
+.toggle-icon.animating {
+    animation: fadeIcon 0.5s forwards ease-in-out;
+}
 
-  /* 3. The button defaults (search vs add) */
-  .toggle-button {
-    background-color: transparent;
-    position: relative;
-    left: -5.15rem;
-    height: 50px;
-    width: 90px;
-    background-size: 170px 170px;
-    overflow: visible; /* Path to your SVG */
-    background-repeat: no-repeat; /* Prevents repeating */
-    background-position: center;
-    border: none;
-    transition: transform 0.3s ease;
-    z-index: 2;
-  }
+/* ========================= */
+/* ANIMATION STYLES */
+/* ========================= */
 
-  /* 4. The "animating" class triggers our keyframes */
-  .toggle-button.animating {
-    animation: expandFill 1s forwards ease-in-out;
-  }
+/* Expanding effect */
+.text-input.search::before {
+    content: "";
+    position: relative;
+    width: 0%;
+    height: 100%;
+    background: #C93F2B;
+    top: 0;
+    right: 0;
+    transition: width 6s ease-in-out;
+    z-index: 20;
+}
+
+.text-input.search.animating::before {
+    width: 100%;
+}
+
+/* Move the button left */
+.toggle-button.animating {
+    animation: moveLeft 0.5s forwards ease-in-out;
+}
+
+/* Fade and show icons */
+@keyframes fadeIcon {
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes showIcon {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Move toggle button */
+@keyframes moveLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translate(-18rem);
+    }
+}
+
+/* Button animation when switching modes */
+@keyframes renderTaskButton {
+    0% {
+        transform: translateX(-18rem);
+        background-image: url("../../assets/orange-drip.svg");
+    }
+    100% {
+        transform: translate(0);
+        background-image: url("../../assets/tan-drip.svg");
+    }
+}
+
+@keyframes renderSearchButton {
+    0% {
+        transform: translateX(-18rem);
+        background-image: url("../../assets/tan-drip.svg");
+    }
+    100% {
+        transform: translate(0);
+        background-image: url("../../assets/orange-drip.svg");
+    }
+}
+
+/* Background transitions */
+@keyframes renderTaskRect {
+    0% {
+        background-color: #C93F2B;
+    }
+    100% {
+        background-color: #F6EEC9;
+    }
+}
+
+@keyframes renderTaskSearch {
+    0% {
+        background-color: #F6EEC9;
+    }
+    100% {
+        background-color: #C93F2B;
+    }
+}

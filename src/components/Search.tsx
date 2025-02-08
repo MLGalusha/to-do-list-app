@@ -1,6 +1,6 @@
 import "./styles/Input.css";
 import TaskIcon from "../assets/add-task.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SearchProps {
   searchQuery: string;
@@ -17,27 +17,42 @@ function Search({
 }: SearchProps) {
   // A "state" that toggles the animation
   const [expanded, setExpanded] = useState(false);
+  const [switchColor, setSwitchColor] = useState<boolean>(false);
+  const [triggerSwitch, setTriggerSwitch] = useState(false); // NEW STATE TO TRIGGER EFFECT
+
+  // Effect to handle delay
+  useEffect(() => {
+    if (triggerSwitch) {
+      const timeout = setTimeout(() => {
+        onSetSearchQuery("");
+        onSetInputMode(inputMode === "search" ? "add" : "search");
+        setTriggerSwitch(false); // Reset trigger
+      }, 500); // 1 second delay
+
+      return () => clearTimeout(timeout); // Cleanup
+    }
+  }, [triggerSwitch]); // Runs when `triggerSwitch` changes
 
   function handleButtonClick() {
-    onSetInputMode("add");
-    onSetSearchQuery("");
-    // Trigger the entire animation
+    console.log("Before:", expanded);
     setExpanded(true);
-
-    // Switch the mode (optional)
-    onSetInputMode(inputMode === "search" ? "add" : "search");
-
-    // If you want the animation to reset after finishing,
-    // you could use a timeout or some other approach:
-    setTimeout(() => {
-      setExpanded(false);
-    }, 1000); // 1 second (the duration of your animation)
+    setTriggerSwitch(true); // Trigger useEffect
   }
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()} className="search-add-form">
+      <div
+        className={`
+            input-shadow
+            ${inputMode}
+          `}
+      />
       <div className="button-input-wrapper">
         <input
-          className={`text-input ${inputMode}`}
+          className={`
+            text-input
+            ${inputMode}
+            ${expanded ? "animating" : ""}
+          `}
           type="text"
           value={searchQuery}
           onChange={(e) => onSetSearchQuery(e.target.value)}
@@ -50,9 +65,25 @@ function Search({
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          onClick={handleButtonClick}
+          onClick={() => {
+            setSwitchColor(!switchColor);
+            handleButtonClick();
+          }}
         >
-          <img src={TaskIcon} className="toggle-icon" />
+          <img
+            src={TaskIcon}
+            className={`
+                toggle-icon
+                ${expanded ? "animating" : ""}`}
+            alt="toggle"
+          />
+          <div
+            className={`
+            input-rectangle
+            ${inputMode}
+            ${expanded ? "animating" : ""}
+          `}
+          />
         </button>
       </div>
     </form>
