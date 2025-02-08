@@ -57,44 +57,46 @@ function TaskListForm({
   return (
     <form onSubmit={handleSubmit}>
       {/* Wrap the button + input together */}
-      <div
-        className={`
+      <div className="contain-input">
+        <div
+          className={`
             input-shadow
             ${inputMode}
           `}
-      />
-      <div className="button-input-wrapper">
-        <input
-          className={`text-input ${inputMode} ${expanded ? "animating" : ""}`}
-          type="text"
-          value={taskText}
-          onChange={(e) => setTaskText(e.target.value)}
-          placeholder="Add a task..."
         />
-        <button
-          type="button"
-          className={`
+        <div className="button-input-wrapper">
+          <input
+            className={`text-input ${inputMode} ${expanded ? "animating" : ""}`}
+            type="text"
+            value={taskText}
+            onChange={(e) => setTaskText(e.target.value)}
+            placeholder="Add a task..."
+          />
+          <button
+            type="button"
+            className={`
             toggle-button
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          onClick={handleButtonClick}
-        >
-          <img
-            src={SearchIcon}
-            className={`
+            onClick={handleButtonClick}
+          >
+            <img
+              src={SearchIcon}
+              className={`
             toggle-icon
             ${expanded ? "animating" : ""}`}
-            alt="toggle"
-          />
-          <div
-            className={`
+              alt="toggle"
+            />
+            <div
+              className={`
             input-rectangle
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          />
-        </button>
+            />
+          </button>
+        </div>
       </div>
     </form>
   );

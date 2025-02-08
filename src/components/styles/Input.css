@@ -2,6 +2,21 @@
 /* GLOBAL STYLES */
 /* ========================= */
 
+
+.contain-input {
+    position: relative;
+    transform: scale(1.6);
+    bottom: 1rem;
+    left: 6rem;
+    transform-origin: center;
+    transition: .2s ease-in-out;
+}
+
+.contain-input:hover {
+    animation: scaleBounce 1s ease-in-out;
+}
+
+
 .text-input {
     display: block;
     position: relative;
@@ -129,8 +144,14 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    z-index: 2;
+    z-index: 10;
+    /* transition: 0.2s ease-in-out; */
 }
+
+.toggle-button:hover {
+    transform: scale(1.1);
+}
+
 
 .toggle-button.search {
     background-image: url("../../assets/orange-drip.svg");
@@ -190,6 +211,19 @@
 /* Move the button left */
 .toggle-button.animating {
     animation: moveLeft 0.5s forwards ease-in-out;
+}
+
+
+@keyframes scaleBounce {
+    0% {
+        transform: scale(1.6);
+    }
+    50% {
+        transform: scale(1.7);
+    }
+    100% {
+        transform: scale(1.6);
+    }
 }
 
 /* Fade and show icons */

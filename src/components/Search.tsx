@@ -40,51 +40,53 @@ function Search({
   }
   return (
     <form onSubmit={(e) => e.preventDefault()} className="search-add-form">
-      <div
-        className={`
+      <div className="contain-input">
+        <div
+          className={`
             input-shadow
             ${inputMode}
           `}
-      />
-      <div className="button-input-wrapper">
-        <input
-          className={`
+        />
+        <div className="button-input-wrapper">
+          <input
+            className={`
             text-input
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSetSearchQuery(e.target.value)}
-          placeholder="Search a task..."
-        />
-        <button
-          type="button"
-          className={`
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSetSearchQuery(e.target.value)}
+            placeholder="Search a task..."
+          />
+          <button
+            type="button"
+            className={`
             toggle-button
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          onClick={() => {
-            setSwitchColor(!switchColor);
-            handleButtonClick();
-          }}
-        >
-          <img
-            src={TaskIcon}
-            className={`
+            onClick={() => {
+              setSwitchColor(!switchColor);
+              handleButtonClick();
+            }}
+          >
+            <img
+              src={TaskIcon}
+              className={`
                 toggle-icon
                 ${expanded ? "animating" : ""}`}
-            alt="toggle"
-          />
-          <div
-            className={`
+              alt="toggle"
+            />
+            <div
+              className={`
             input-rectangle
             ${inputMode}
             ${expanded ? "animating" : ""}
           `}
-          />
-        </button>
+            />
+          </button>
+        </div>
       </div>
     </form>
   );

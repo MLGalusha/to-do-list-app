@@ -75,26 +75,40 @@ function TaskList({ taskList, onAddTask, onModifyTaskList }: TaskListProps) {
 
   return (
     <div className="wrap">
-      {inputMode === "add" ? (
-        <div className="input-container">
-          <TaskListForm
-            onAddTask={onAddTask}
-            taskText={taskText}
-            setTaskText={setTaskText}
-            onSetInputMode={setInputMode}
-            inputMode={inputMode}
+      <div className="wrap-input-container">
+        <div className="fade-background" />
+        <div className="background" />
+        {inputMode === "add" ? (
+          <div className="input-container">
+            <TaskListForm
+              onAddTask={onAddTask}
+              taskText={taskText}
+              setTaskText={setTaskText}
+              onSetInputMode={setInputMode}
+              inputMode={inputMode}
+            />
+          </div>
+        ) : (
+          <div className="input-container">
+            <Search
+              searchQuery={searchQuery}
+              onSetSearchQuery={setSearchQuery}
+              onSetInputMode={setInputMode}
+              inputMode={inputMode}
+            />
+          </div>
+        )}
+      </div>
+      <div className="task-list-wrap">
+        {finalList.map((task) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            taskList={taskList}
+            onModifyTaskList={onModifyTaskList}
           />
-        </div>
-      ) : (
-        <div className="input-container">
-          <Search
-            searchQuery={searchQuery}
-            onSetSearchQuery={setSearchQuery}
-            onSetInputMode={setInputMode}
-            inputMode={inputMode}
-          />
-        </div>
-      )}
+        ))}
+      </div>
       <SortDropDown
         sortBy={sortFilterSettings.sortBy}
         onSetSortBy={(value) => updateSortFilterSettings({ sortBy: value })}
@@ -107,16 +121,6 @@ function TaskList({ taskList, onAddTask, onModifyTaskList }: TaskListProps) {
         filter={sortFilterSettings.filter}
         onSetFilter={(value) => updateSortFilterSettings({ filter: value })}
       />
-      <div className="task-list-wrap">
-        {finalList.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            taskList={taskList}
-            onModifyTaskList={onModifyTaskList}
-          />
-        ))}
-      </div>
     </div>
   );
 }
