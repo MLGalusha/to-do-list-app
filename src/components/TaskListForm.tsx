@@ -55,7 +55,7 @@ function TaskListForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="search-add-form">
+    <form onSubmit={handleSubmit}>
       {/* Wrap the button + input together */}
       <div
         className={`
