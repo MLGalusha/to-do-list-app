@@ -1,11 +1,43 @@
 .completed-task {
-    color:rgb(83, 212, 212);
+    position: relative;
+    right: 2.5rem;
+    height: 3rem;
+    width: 29.5rem;
+    background-color: #F6EEC9;
+    color: #C93F2B;
+    border-radius: 10px;
     font: bold;
-    transition: transform 1s ease;
+    transition: transform .19s ease;
+    text-align: center;
 }
 
 .completed-task:hover {
     transform: scale(1.05);
-    color:rgb(4, 250, 250);
     font: bolder;
+
+}
+
+.default-task {
+    position: relative;
+    right: 2.5rem;
+    height: 3rem;
+    width: 29.5rem;
+    background-color: #C93F2B;
+    color: #F6EEC9;
+    border-radius: 10px;
+    transition: transform .1s ease;
+    text-align: center;
+}
+
+.default-task:hover {
+    transform: scale(1.1);
+    font: bolder;
+
+}
+
+
+.complete-task-button {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
 }

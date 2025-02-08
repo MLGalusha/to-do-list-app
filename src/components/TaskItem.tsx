@@ -42,12 +42,12 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
     <div>
       <ul>
         {task.completed ? (
-          <li
+          <div
             className="completed-task"
             onDoubleClick={() => completeTaskToggle()}
           >
             {task.text.toUpperCase()} COMPLETED
-          </li>
+          </div>
         ) : isEditing ? (
           <>
             <input
@@ -65,12 +65,24 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
             <button onClick={() => saveEdit()}>Save</button>
           </>
         ) : (
-          <li>
+          <div className="default-task">
             {task.text}
-            <button onClick={() => onDelete()}>Delete</button>
-            <button onClick={() => setIsEditing(true)}>Edit</button>
-            <button onClick={() => completeTaskToggle()}>◊</button>
-          </li>
+            <button className="complete-task-button" onClick={() => onDelete()}>
+              Delete
+            </button>
+            <button
+              className="complete-task-button"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit
+            </button>
+            <button
+              className="complete-task-button"
+              onClick={() => completeTaskToggle()}
+            >
+              ◊
+            </button>
+          </div>
         )}
       </ul>
     </div>

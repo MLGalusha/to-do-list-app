@@ -22,7 +22,7 @@ function App() {
     setTaskList(newTaskList);
   }
   return (
-    <div className="app-wrap">
+    <div>
       <TaskList
         onAddTask={addTask}
         onModifyTaskList={modifyTaskList}
