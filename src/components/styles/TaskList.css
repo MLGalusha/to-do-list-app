@@ -9,7 +9,7 @@
 
 .wrap-input-container {
     position: sticky;
-    top: 0rem;
+    top: 1rem;
     z-index: 10;
 }
 
@@ -36,12 +36,13 @@
 }
 .background {
     position: absolute;
-    top: 0rem;
+    top: -1rem;
     left: 19rem;
-    height: 13rem;
+    height: 13.2rem;
     width: 60rem;
     z-index: 7;
     background:rgb(33, 53, 71);
+    /* rgb(33, 53, 71) */
 }
 
 

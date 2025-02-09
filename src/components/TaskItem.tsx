@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Task } from "../types";
 import("./styles/TaskItem.css");
 
@@ -11,6 +11,22 @@ interface TaskItemProps {
 function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [textEdit, setTextEdit] = useState<string>(task.text);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [triggerSwitch, setTriggerSwitch] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (triggerSwitch) {
+      setIsAnimating(true);
+      console.log("Set Animating: True");
+      const timeout = setTimeout(() => {
+        setTriggerSwitch(false);
+        setIsAnimating(false);
+        console.log("Set Animating: False");
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [task.completed]);
+
   function onDelete() {
     const newTaskList = taskList.filter((t) => t.id !== task.id);
     onModifyTaskList(newTaskList);
@@ -25,10 +41,11 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
         return t;
       }
     });
-    onModifyTaskList(newTaskList);
     setIsEditing(false);
+    onModifyTaskList(newTaskList);
   }
-  function completeTaskToggle() {
+
+  function taskToggle() {
     const newTaskList = taskList.map((t) => {
       if (t.id === task.id) {
         return { ...t, completed: !task.completed };
@@ -36,54 +53,65 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
         return t;
       }
     });
+    setTriggerSwitch(true);
     onModifyTaskList(newTaskList);
   }
+
   return (
     <div>
       <ul>
-        {task.completed ? (
-          <div
-            className="completed-task"
-            onDoubleClick={() => completeTaskToggle()}
-          >
-            {task.text.toUpperCase()} COMPLETED
-          </div>
-        ) : isEditing ? (
-          <>
-            <input
-              type="text"
-              value={textEdit}
-              onChange={(e) => {
-                if (e.target.value.trim()) {
-                  setTextEdit(e.target.value);
-                } else {
-                  setTextEdit("");
-                }
-              }}
-              onKeyDown={(e) => e.key === "Enter" && saveEdit()}
-            />
-            <button onClick={() => saveEdit()}>Save</button>
-          </>
-        ) : (
-          <div className="default-task">
-            {task.text}
-            <button className="complete-task-button" onClick={() => onDelete()}>
-              Delete
-            </button>
-            <button
-              className="complete-task-button"
-              onClick={() => setIsEditing(true)}
-            >
-              Edit
-            </button>
-            <button
-              className="complete-task-button"
-              onClick={() => completeTaskToggle()}
-            >
-              ◊
-            </button>
-          </div>
-        )}
+        <div className="contain-list-item">
+          {task.completed ? (
+            <div className="tan task-item">
+              <div className="list-text">{task.text}</div>
+              <div
+                className={`red-orange sliding-rect ${
+                  isAnimating ? "animating" : ""
+                }`}
+              />
+              <div
+                className="red-orange-drip-svg toggle-complete"
+                onClick={() => taskToggle()}
+              />
+            </div>
+          ) : isEditing ? (
+            <>
+              <input
+                type="text"
+                value={textEdit}
+                onChange={(e) => {
+                  if (e.target.value.trim()) {
+                    setTextEdit(e.target.value);
+                  } else {
+                    setTextEdit("");
+                  }
+                }}
+                onKeyDown={(e) => e.key === "Enter" && saveEdit()}
+              />
+              <button onClick={() => saveEdit()}>Save</button>
+            </>
+          ) : (
+            <div className="red-orange task-item">
+              <div className="list-text">{task.text}</div>
+              {/* <button className="delete-task-button" onClick={() => onDelete()}>
+                Delete
+              </button>
+              <button
+                className="edit-task-button"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit
+              </button> */}
+              <div
+                className={`tan sliding-rect ${isAnimating ? "animating" : ""}`}
+              />
+              <div
+                className="tan-drip-svg toggle-complete"
+                onClick={() => taskToggle()}
+              />
+            </div>
+          )}
+        </div>
       </ul>
     </div>
   );
