@@ -40,7 +40,7 @@
     position: relative;
     top: -0.1rem;
     left: 2rem;
-    height: 3.2rem;
+    height: 3.5rem;
     width: 21rem;
     z-index: 6;
     opacity: 100%;
@@ -219,7 +219,7 @@
         transform: scale(1.6);
     }
     50% {
-        transform: scale(1.7);
+        transform: scale(1.65);
     }
     100% {
         transform: scale(1.6);
