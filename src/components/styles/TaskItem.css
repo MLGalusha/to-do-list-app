@@ -1,10 +1,23 @@
 .tan {
     background-color: #F6EEC9;
+    transition: transform 0.5s ease-in-out;
 }
 
 .red-orange {
     background-color: #C93F2B;
+    transition: transform 0.5s ease-in-out;
 }
+
+.fade-tan.start-animating {
+    background-color: #F6EEC9;
+    animation: fadeTanColor 0.5s ease-in-out;
+}
+
+.fade-red-orange.start-animating {
+    background-color: #C93F2B;
+    animation: fadeRedOrangeColor 0.5s ease-in-out;
+}
+
 
 .task-item {
     position: relative;
@@ -14,6 +27,7 @@
     font: bold;
     transition: transform .19s ease;
 }
+
 
 .toggle-complete {
     position: absolute;
@@ -26,25 +40,24 @@
     background-position: left;
     background-size: 7.5rem 7.5rem;
     overflow: visible;
-    transition: transform 0.1s ease-in-out;
+    transition: transform 0.5s ease-in-out;
     /* border: 1px solid black; */
-    z-index: 100;
+    z-index: 99;
 }
 
-.tan-drip-svg {
+.toggle-complete.tan-drip-svg {
     background-image: url("../../assets/tan-drip-blob.svg");
+    animation: fadeTanSVG 0.5s ease-in-out;
 }
-
-.red-orange-drip-svg {
+.toggle-complete.red-orange-drip-svg {
     background-image: url("../../assets/red-orange-drip-blob.svg");
+    animation: fadeRedOrangeSVG 0.5s ease-in-out;
 }
 
-.toggle-complete.tan-drip-svg.animating {
-    animation: slideButtonTan 5s ease-in-out;
-}
 
-.toggle-complete.red-orange-drip-svg.animating {
-    animation: slideButtonRedOrange 5s ease-in-out;
+.toggle-complete.animating {
+    animation: moveItemRight .5s ease-in-out;
+    pointer-events: none;
 }
 
 .sliding-rect {
@@ -53,15 +66,20 @@
     right: 28rem;
     height: 3rem;
     width: 29rem;
-    z-index: 100;
+    z-index: 110;
+
 }
 
-.sliding-rect.tan.animating {
-    animation: slideRectTan 5s ease-in-out;
+.fade-red-orange.animating {
+    background-color: #C93F2B;
+    animation: moveItemRight .5s ease-in-out;
+    pointer-events: none;
 }
 
-.sliding-rect.red-orange.animating {
-    animation: slideRectRedOrange 5s ease-in-out;
+.fade-tan.animating {
+    background-color: #F6EEC9;
+    animation: moveItemRight .5s ease-in-out;
+    pointer-events: none;
 }
 
 .list-text {
@@ -85,55 +103,61 @@
     opacity: 80%;
 }
 
+.contain-slide {
+    position: relative;
+    border: 3px solid black;
+}
 
-@keyframes slideButtonTan {
+@keyframes moveItemRight {
     0% {
         transform: translateX(0);
     }
-    50% {
-        transform: translateX(28rem);
-    }
     100% {
-        transform: translateX(0rem);
-        background-image: url("../../assets/red-orange-drip-blob.svg");
+        transform: translateX(28rem);
     }
 }
 
-@keyframes slideButtonRedOrange {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(28rem);
-    }
-    100% {
-        transform: translateX(0rem);
-        background-image: url("../../assets/tan-drip-blob.svg");
-    }
-}
 
-@keyframes slideRectTan {
+@keyframes fadeTanColor {
     0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(28rem);
-    }
-    100% {
-        transform: translateX(0rem);
         background-color: #C93F2B;
-    }
-}
-
-@keyframes slideRectRedOrange {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
         transform: translateX(28rem);
     }
     100% {
-        transform: translateX(0rem);
         background-color: #F6EEC9;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeRedOrangeColor {
+    0% {
+        background-color: #F6EEC9;
+        transform: translateX(28rem);
+    }
+    100% {
+        background-color: #C93F2B;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeTanSVG {
+    0% {
+        background-image: url("../../assets/red-orange-drip-blob.svg");
+        transform: translateX(28rem);
+    }
+    100% {
+        background-image: url("../../assets/tan-drip-blob.svg");
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeRedOrangeSVG {
+    0% {
+        background-image: url("../../assets/tan-drip-blob.svg");
+        transform: translateX(28rem);
+    }
+    100% {
+        background-image: url("../../assets/red-orange-drip-blob.svg");
+        transform: translateX(0);
     }
 }

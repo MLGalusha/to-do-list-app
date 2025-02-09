@@ -17,15 +17,21 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
   useEffect(() => {
     if (triggerSwitch) {
       setIsAnimating(true);
-      console.log("Set Animating: True");
       const timeout = setTimeout(() => {
+        const newTaskList = taskList.map((t) => {
+          if (t.id === task.id) {
+            return { ...t, completed: !task.completed };
+          } else {
+            return t;
+          }
+        });
+        onModifyTaskList(newTaskList);
         setTriggerSwitch(false);
         setIsAnimating(false);
-        console.log("Set Animating: False");
-      }, 5000);
+      }, 500);
       return () => clearTimeout(timeout);
     }
-  }, [task.completed]);
+  }, [triggerSwitch]);
 
   function onDelete() {
     const newTaskList = taskList.filter((t) => t.id !== task.id);
@@ -46,15 +52,7 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
   }
 
   function taskToggle() {
-    const newTaskList = taskList.map((t) => {
-      if (t.id === task.id) {
-        return { ...t, completed: !task.completed };
-      } else {
-        return t;
-      }
-    });
     setTriggerSwitch(true);
-    onModifyTaskList(newTaskList);
   }
 
   return (
@@ -62,15 +60,22 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
       <ul>
         <div className="contain-list-item">
           {task.completed ? (
-            <div className="tan task-item">
+            <div
+              className={`tan task-item ${
+                isAnimating ? "animating" : "start-animating"
+              }`}
+            >
               <div className="list-text">{task.text}</div>
               <div
-                className={`red-orange sliding-rect ${
-                  isAnimating ? "animating" : ""
+                className={`fade-red-orange sliding-rect ${
+                  isAnimating ? "animating" : "start-animating"
                 }`}
+                onClick={() => taskToggle()}
               />
               <div
-                className="red-orange-drip-svg toggle-complete"
+                className={`red-orange-drip-svg toggle-complete ${
+                  isAnimating ? "animating" : "start-animating"
+                }`}
                 onClick={() => taskToggle()}
               />
             </div>
@@ -91,7 +96,11 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
               <button onClick={() => saveEdit()}>Save</button>
             </>
           ) : (
-            <div className="red-orange task-item">
+            <div
+              className={`red-orange task-item ${
+                isAnimating ? "animating" : "start-animating"
+              }`}
+            >
               <div className="list-text">{task.text}</div>
               {/* <button className="delete-task-button" onClick={() => onDelete()}>
                 Delete
@@ -103,10 +112,15 @@ function TaskItem({ task, taskList, onModifyTaskList }: TaskItemProps) {
                 Edit
               </button> */}
               <div
-                className={`tan sliding-rect ${isAnimating ? "animating" : ""}`}
+                className={`fade-tan sliding-rect ${
+                  isAnimating ? "animating" : "start-animating"
+                }`}
+                onClick={() => taskToggle()}
               />
               <div
-                className="tan-drip-svg toggle-complete"
+                className={`tan-drip-svg toggle-complete ${
+                  isAnimating ? "animating" : ""
+                }`}
                 onClick={() => taskToggle()}
               />
             </div>
