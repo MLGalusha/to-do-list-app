@@ -45,6 +45,18 @@
     z-index: 99;
 }
 
+.edit-task-button {
+    position: relative;
+    left: 1rem;
+    z-index: 200;
+}
+
+.delete-task-button {
+    position: relative;
+    left: 1rem;
+    z-index: 200;
+}
+
 .toggle-complete.tan-drip-svg {
     background-image: url("../../assets/tan-drip-blob.svg");
     animation: fadeTanSVG 0.5s ease-in-out;
